@@ -39,11 +39,11 @@ export default function Index() {
     </div>
   );
 
-  const InputField = ({ 
-    label, 
-    type = "text", 
-    value, 
-    onChange, 
+  const InputField = ({
+    label,
+    type = "text",
+    value,
+    onChange,
     placeholder,
     showPasswordToggle = false,
     onTogglePassword,
@@ -72,82 +72,94 @@ export default function Index() {
           <button
             type="button"
             onClick={onTogglePassword}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-800"
+            className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-800"
           >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clipPath="url(#clip0_160_3614)">
+                <path d="M3 3L21 21" stroke="#505A66" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M10.5845 10.5869C10.2092 10.9619 9.99823 11.4707 9.99805 12.0012C9.99786 12.5317 10.2084 13.0406 10.5835 13.4159C10.9585 13.7912 11.4672 14.0021 11.9977 14.0023C12.5283 14.0025 13.0372 13.7919 13.4125 13.4169" stroke="#505A66" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M9.363 5.365C10.2204 5.11972 11.1082 4.99684 12 5C16 5 19.333 7.333 22 12C21.222 13.361 20.388 14.524 19.497 15.488M17.357 17.349C15.726 18.449 13.942 19 12 19C8 19 4.667 16.667 2 12C3.369 9.605 4.913 7.825 6.632 6.659" stroke="#505A66" strokeLinecap="round" strokeLinejoin="round"/>
+              </g>
+              <defs>
+                <clipPath id="clip0_160_3614">
+                  <rect width="24" height="24" fill="white"/>
+                </clipPath>
+              </defs>
+            </svg>
           </button>
         )}
       </div>
       {isPassword && value && (
-        <div className="absolute left-4 top-8 password-dots">
+        <div className="password-dots">
           {Array.from({ length: 8 }).map((_, i) => (
             <div key={i} className="password-dot" />
           ))}
         </div>
       )}
       {placeholder && !value && (
-        <div className="absolute left-4 top-7 text-sm text-gray-400 pointer-events-none">
+        <div className="form-placeholder">
           {placeholder}
+        </div>
+      )}
+      {value && (
+        <div className="absolute left-4 top-7 text-sm font-medium" style={{ color: '#1A1A1A', fontFamily: 'Poppins' }}>
+          {type === "password" && !showPassword ? "" : value}
         </div>
       )}
     </div>
   );
 
-  const Button = ({ 
-    children, 
-    onClick, 
-    disabled = false, 
-    variant = "primary" 
+  const Button = ({
+    children,
+    onClick,
+    disabled = false,
+    variant = "primary"
   }: {
     children: React.ReactNode;
     onClick?: () => void;
     disabled?: boolean;
     variant?: "primary" | "secondary";
-  }) => {
-    const baseClasses = "w-full h-12 px-6 rounded-lg text-sm font-medium transition-all duration-200";
-    const variants = {
-      primary: disabled 
-        ? "bg-gray-200 text-gray-500 cursor-not-allowed" 
-        : "bg-brand-primary text-white hover:bg-blue-600",
-      secondary: "bg-white text-brand-primary border border-gray-300 hover:bg-gray-50"
-    };
-    
-    return (
-      <button
-        onClick={onClick}
-        disabled={disabled}
-        className={`${baseClasses} ${variants[variant]}`}
-      >
-        {children}
-      </button>
-    );
-  };
+  }) => (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={variant === "primary" ? "btn-primary" : "btn-secondary"}
+    >
+      {children}
+    </button>
+  );
 
-  const VerificationInput = ({ 
-    value, 
-    onChange, 
-    index 
+  const VerificationInput = ({
+    value,
+    onChange,
+    index
   }: {
     value: string;
     onChange: (value: string, index: number) => void;
     index: number;
   }) => (
-    <input
-      type="text"
-      maxLength={1}
-      value={value}
-      onChange={(e) => onChange(e.target.value, index)}
-      className="w-12 h-12 text-center text-lg font-semibold border-b-2 border-gray-300 bg-white focus:border-brand-primary focus:outline-none"
-    />
+    <div className="relative">
+      <input
+        type="text"
+        maxLength={1}
+        value={value}
+        onChange={(e) => onChange(e.target.value, index)}
+        className="w-12 h-12 text-center text-sm font-semibold bg-white focus:outline-none border-b"
+        style={{ borderBottomColor: value ? '#3679F2' : '#E6EAEE', borderBottomWidth: value ? '2px' : '1px' }}
+      />
+      {value && (
+        <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ background: 'linear-gradient(90deg, #3679F2 0%, #69D6EE 100%)' }}></div>
+      )}
+    </div>
   );
 
   const LoginForm = () => (
     <div className="w-full max-w-lg">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-800 mb-2 font-roboto">
+        <h1 className="text-[42px] font-bold leading-[110%] mb-2" style={{ color: '#21272A', fontFamily: 'Roboto' }}>
           Welcome Back!
         </h1>
-        <p className="text-sm text-gray-500 font-inter">
+        <p className="text-sm leading-5 font-inter" style={{ color: '#6A747E' }}>
           Please sign in to continue
         </p>
       </div>
@@ -177,7 +189,8 @@ export default function Index() {
             <button
               type="button"
               onClick={() => setStep("forgot-password")}
-              className="text-sm text-black hover:underline font-inter"
+              className="text-sm font-medium leading-5 hover:underline font-inter"
+              style={{ color: '#000' }}
             >
               Forgot Password?
             </button>
