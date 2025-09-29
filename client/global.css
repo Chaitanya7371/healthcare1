@@ -1,5 +1,7 @@
 /** @import must precede all other statements */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -104,6 +106,24 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+  }
+
+  /* Custom input field styling for the design */
+  .form-input {
+    @apply w-full h-14 px-4 pt-6 pb-2 border border-gray-400 rounded-lg bg-gray-50 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent;
+  }
+
+  .form-label {
+    @apply absolute left-4 top-2 text-xs font-medium text-gray-600 pointer-events-none;
+  }
+
+  /* Password dots styling */
+  .password-dots {
+    @apply flex items-center gap-1;
+  }
+
+  .password-dot {
+    @apply w-2 h-2 bg-gray-900 rounded-full;
   }
 }
