@@ -13,7 +13,30 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'inter': ['Inter', 'sans-serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+      },
       colors: {
+        // Design system colors from Figma
+        brand: {
+          primary: "#2483C5",
+          blue: "#2483C5",
+        },
+        gray: {
+          50: "#FBFBFB",
+          100: "#F5F7FB",
+          200: "#ECF0F6",
+          300: "#E6EAEE",
+          400: "#BAC3C8",
+          500: "#6A747E",
+          600: "#505A66",
+          700: "#3A4B55",
+          800: "#21272A",
+          900: "#1A1A1A",
+        },
+        // Original shadcn colors
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
